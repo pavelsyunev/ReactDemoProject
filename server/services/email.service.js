@@ -7,11 +7,9 @@ let transporter = nodemailer.createTransport({
     secure: true,
     auth: {
         user: process.env.EMAIL,
-        password: process.env.EMAIL_PASSWORD
+        pass: process.env.EMAIL_PASSWORD
     }
 })
-
-
 
 const registerEmail = async (userEmail, user) => {
     try{
@@ -49,6 +47,7 @@ const registerEmail = async (userEmail, user) => {
 
         await transporter.sendMail(message)
         return true;
+
     } catch(error){
         throw error
     }
