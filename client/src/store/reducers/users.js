@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
     registerUser,
-    signInUser
+    signInUser,
+    isAuth
 } from '../actions/users'
 
 let DEFAULT_USER_STATE = {
@@ -34,6 +35,7 @@ export const usersSlice = createSlice({
                 state.auth = action.payload.auth;
             })
             .addCase(registerUser.rejected,(state)=>{ state.loading = false })
+
             // SIGN IN
             .addCase(signInUser.pending,(state)=>{ state.loading = true })
             .addCase(signInUser.fulfilled,(state,action)=>{
@@ -43,6 +45,14 @@ export const usersSlice = createSlice({
             })
             .addCase(signInUser.rejected,(state)=>{ state.loading = false })
 
+            // IS AUTH
+            .addCase(isAuth.pending,(state)=>{ state.loading = true })
+            .addCase(isAuth.fulfilled,(state,action)=>{
+                state.loading = false;
+                state.data = { ...state.data,...action.payload.data}
+                state.auth = action.payload.auth;
+            })
+            .addCase(isAuth.rejected,(state)=>{ state.loading = false })
     }
 })
 
